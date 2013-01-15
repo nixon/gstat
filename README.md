@@ -1,5 +1,7 @@
 # gstat
 
+[![Build Status](https://secure.travis-ci.org/nixon/gstat.png)](http://travis-ci.org/nixon/gstat)
+
 Send metrics to a graphite host without causing any exceptions or
 otherwise preventing the caller from continuing.
 
