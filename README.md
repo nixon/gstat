@@ -7,8 +7,10 @@ otherwise preventing the caller from continuing.
 
 Use environment variables to control where metrics are sent:
 
+```
    `CARBON_HOST`: if not set, logs metrics instead of sending to a host (useful during development, etc)
-  `CARBON_PORT`:  defaults to 2003
+   `CARBON_PORT`:  defaults to 2003
+```
 
 ## Installation
 
