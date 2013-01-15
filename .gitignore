@@ -1,0 +1,8 @@
+*.sw?
+*.pyc
+*.pyo
+*~
+
+MANIFEST
+build
+dist
