@@ -104,4 +104,4 @@ def gstat_event(metric, ts=None):
 if __name__ == "__main__":
     fmt = '%(asctime)s %(levelname)s %(funcName)s:%(lineno)s: %(message)s'
     logging.basicConfig(level=logging.WARNING, format=fmt)
-    print gstat(*sys.argv[1:4])
+    print(gstat(*sys.argv[1:4]))
