@@ -72,7 +72,7 @@ class GstatDebugTestCase(GstatTestCase):
 
     def test_gstat_metric_value(self):
         g = gstat("test.gstat.testcase", 657)
-        self.assertIsNotNone(g)
+        self.assertNotEqual(g, None)
         self.assertEquals(g.split()[0], '(debug)')
         self.assertEquals(g.split()[1], 'test.gstat.testcase')
         self.assertEquals(g.split()[2], '657')
@@ -87,10 +87,10 @@ class GstatDebugTestCase(GstatTestCase):
 
     def test_gstat_bad_parms(self):
         """test that gstat doesnt raise exceptions for bad values"""
-        self.assertIsNone(gstat(1,"a","a"))
+        self.assertEqual(gstat(1,"a","a"), None)
 
     def test_gstats_not_iterable_dont_kill_caller(self):
-        self.assertIsNone(gstats(7))
+        self.assertEqual(gstats(7), None)
 
 
 class GstatProdTestCase(GstatTestCase):
@@ -103,7 +103,7 @@ class GstatProdTestCase(GstatTestCase):
 
     def test_gstat_used_socket(self):
         gstat("test.gstat.testcase", 1)
-        self.assertIsNotNone(self._socket._sendto_msg)
+        self.assertNotEqual(self._socket._sendto_msg, None)
 
     def test_gstat_metric_value_ts(self):
         gstat("test.gstat.testcase", 647.3, 789)
@@ -124,7 +124,7 @@ class GstatProdTestCase(GstatTestCase):
         self.assertEqual(len(g), 0)
 
         # graphite expects a trailing newline at the end of a sent stat
-        self.assertGreater(len(self._socket._sendto_msg), 0)
+        self.assertTrue(len(self._socket._sendto_msg) > 0)
         for sent in self._socket._sendto_msg:
             self.assertTrue(sent['msg'].endswith('\n'))
 
@@ -139,7 +139,7 @@ class GstatProdTestCase(GstatTestCase):
 
     def test_socket_errors_dont_kill_caller(self):
         gstat("test.gstat.socket_error", 1)
-        self.assertIsNotNone(self._socket._sendto_msg)
+        self.assertNotEqual(self._socket._sendto_msg, None)
 
     def test_elapsed_decorator(self):
         method_arg = "xyzzy"
