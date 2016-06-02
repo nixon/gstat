@@ -6,7 +6,7 @@ setup(
         name="gstat",
         author="nixon",
         url="https://github.com/nixon/gstat/",
-        version="0.1.1",
+        version="0.1.4",
         license="LICENSE",
         description='Send metrics to a graphite host.',
         long_description=open('README.md').read(),
