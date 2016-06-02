@@ -51,16 +51,18 @@ def gstat(metric, value, ts=None):
         return "(debug) " + msg
 
     try:
-        s = socket.socket( socket.AF_INET, socket.SOCK_DGRAM )
-        s.sendto( msg+'\n', (CARBON_HOST, CARBON_PORT) )
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.sendto(msg+'\n', (CARBON_HOST, CARBON_PORT))
         # sent.  did it get there?  we dont care!
         logger.debug("gstat sent: %s" % msg)
     except socket.error:
         logger.exception("gstat failed for '%s'. ignoring..." % msg)
         return None
     finally:
-        try: s.close()
-        except (NameError, UnboundLocalError): pass
+        try:
+            s.close()
+        except (NameError, UnboundLocalError):
+            pass
 
     return msg
 
@@ -73,7 +75,7 @@ def gstats(metrics, ts=None):
         ts = time.time()
 
     try:
-        return [ gstat(m, v, ts) for m, v in metrics ]
+        return [gstat(m, v, ts) for m, v in metrics]
     except (TypeError, ValueError):
         # metrics not iterable?
         logger.exception(

@@ -7,14 +7,15 @@ from ..gstat import gstat, gstats, gstat_event, gstat_elapsed
 
 
 class MockSocket(object):
+
     def __init__(self, *args, **kwargs):
         self._sendto_msg = []
         self._closed = False
 
     def sendto(self, msg, hostport):
-        sent = { 'msg': msg }
-        sent.update(zip( ('host', 'port'), hostport ))
-        sent.update(zip( ('metric', 'value', 'ts'), msg.split() ))
+        sent = {'msg': msg}
+        sent.update(zip(('host', 'port'), hostport))
+        sent.update(zip(('metric', 'value', 'ts'), msg.split()))
         self._sendto_msg.append(sent)
 
         if "socket_error" in sent['msg']:
@@ -25,6 +26,7 @@ class MockSocket(object):
 
 
 class GstatTestCase(unittest.TestCase):
+
     def setUp(self):
         super(GstatTestCase, self).setUp()
         self._orig_socket = socket.socket
@@ -48,17 +50,18 @@ class GstatTestCase(unittest.TestCase):
         return self._socket
 
     def metric_sent(self):
-        return [ m['metric'] for m in self._socket._sendto_msg ]
+        return [m['metric'] for m in self._socket._sendto_msg]
 
     def value_sent(self):
-        return [ m['value'] for m in self._socket._sendto_msg ]
+        return [m['value'] for m in self._socket._sendto_msg]
 
     def ts_sent(self):
-        return [ m['ts'] for m in self._socket._sendto_msg ]
+        return [m['ts'] for m in self._socket._sendto_msg]
 
 
 class GstatDebugTestCase(GstatTestCase):
     """gstat called in a development environment doesn't send stats"""
+
     def setUp(self):
         super(GstatDebugTestCase, self).setUp()
         try:
@@ -87,7 +90,7 @@ class GstatDebugTestCase(GstatTestCase):
 
     def test_gstat_bad_parms(self):
         """test that gstat doesnt raise exceptions for bad values"""
-        self.assertEqual(gstat(1,"a","a"), None)
+        self.assertEqual(gstat(1, "a", "a"), None)
 
     def test_gstats_not_iterable_dont_kill_caller(self):
         self.assertEqual(gstats(7), None)
@@ -97,6 +100,7 @@ class GstatProdTestCase(GstatTestCase):
     """
     gstat called in a production environment uses socket to send stats
     """
+
     def tearDown(self):
         super(GstatProdTestCase, self).tearDown()
         self.assertTrue(self._socket._closed)
